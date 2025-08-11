@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/items.css">
+</head>
+<body>
+     <main>
+        <h1 class="header-page-title">Inventory Management</h1>
+        <div class="header-section-title">Items</div>
+        <div class="item-grid">
+        <% items.forEach(item => { %>
+            <div class="item-card">
+                <h2 class="item-title"><%= item.name %></h2>
+                <p class="description"><%= item.description %></p>
+                <div class="meta-row">
+                    <span class="badge price">$<%= item.price %></span>
+                    <span class="badge quantity"><%= item.quantity %> pcs</span>
+                </div>
+                <div class="chips">
+                    <span class="chip chip-supplier"><%= item.supplier %></span>
+                    <span class="chip chip-category"><%= item.category %></span>
+                </div>
+                <div class="buttons-container">
+                    <a class="btn edit" href="/item/<%= item.id %>/edit">Edit Item</a>
+                    <a class="btn delete" href="/item/<%= item.id %>/delete">Delete Item</a>
+
+                </div>
+            </div>
+        <% }) %>
+            <div class="item-card add-card">
+                <a href="/item/new" class="add-link">
+                    <div class="plus">+</div>
+                    <p>Add New Item</p>
+                </a>
+            </div>
+        </div>
+        <div class="view-all-container">
+            <a href="/" class="view-all-link">View All Categories and Suppliers</a>
+        </div>
+    </main>
+        </main>
+</body>
+</html>

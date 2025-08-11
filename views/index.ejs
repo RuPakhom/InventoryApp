@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main>
+        <h1 class="header-page-title">Inventory Management</h1>
+        <div class="header-section-title">Categories</div>
+        <div class="category-grid">
+        <% categories.forEach(category => { %>
+            <div class="category-card">
+                <h2><%= category.name %></h2>
+                <p class="description"><%= category.description %></p>
+                <p class="count"><%= category.item_count %> products</p>
+                <div class="buttons-container">
+                    <a class="btn" href="/category/<%= category.id %>">View Items</a>
+                    <a class="btn edit" href="/category/<%= category.id %>/edit">Edit Category</a>
+                    <a class="btn delete" href="/category/<%= category.id %>/delete">Delete Category</a>
+                </div>
+            </div>
+        <% }) %>
+            <div class="category-card add-card">
+                <a href="/category/new" class="add-link">
+                    <div class="plus">+</div>
+                    <p>Add New Category</p>
+                </a>
+            </div>
+        </div>
+
+         <div class="header-section-title">Suppliers</div>
+        <div class="supplier-grid">
+        <% suppliers.forEach(supplier => { %>
+            <div class="supplier-card">
+                <h2><%= supplier.name %></h2>
+                <p class="contact"><%= supplier.contact %></p>
+                <p class="count"><%= supplier.item_count %> products</p>
+                <div class="buttons-container">
+                    <a class="btn" href="/supplier/<%= supplier.id %>">View Items</a>
+                    <a class="btn edit" href="/supplier/<%= supplier.id %>/edit">Edit Supplier</a>
+                    <a class="btn delete" href="/supplier/<%= supplier.id %>/delete">Delete Supplier</a>
+                </div>
+                </div>
+        <% }) %>
+
+
+        <div class="supplier-card add-card">
+            <a href="/supplier/new" class="add-link">
+                <div class="plus">+</div>
+                <p>Add New Supplier</p>
+            </a>
+        </div>
+        </div>
+
+
+        <div class="view-all-container">
+            <a href="/item/all" class="view-all-link">View All Items</a>
+        </div>
+    </main>
+
+</body>
+</html>

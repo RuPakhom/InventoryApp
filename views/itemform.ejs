@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/form.css">
+</head>
+<body>
+    <main class="container">
+        <h1 class="header-page-title">Inventory Management</h1>
+        <% if(locals.errors && errors.length) {%>
+            <div class="alert alert-error">
+                <strong>Fix the following:</strong>
+                <ul>
+                    <% errors.forEach(e => {%>
+                        <li><%= e.msg %></li><%})%>
+                </ul>
+            </div>
+        <% } %>
+
+        <section class="form-card">
+            <h2 class="form-title">Create Item</h2>
+
+            <form action="<%= action %>" method="POST" novalidate>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Name <span class="req">*</span></label>
+                        <input 
+                          type="text"
+                          required
+                          name="name"
+                          id="name"
+                          class="input"
+                          value="<%= typeof body!== 'undefined' ? body.name : '' %>"
+                          placeholder="e.g., Fender Stratocaster"
+                          />
+                        <% if(locals.errorsMap && locals.errorsMap.name) {%>
+                            <div class="field-error"><%= errorsMap.name.msg %></div>
+                        <% } %>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="description">Description</label>
+                        <textarea 
+                          name="description"
+                          id="description"
+                          class="textarea"
+                          rows="4"
+                          placeholder="Short description"
+                          ><%= typeof body!== 'undefined' ? body.description : '' %></textarea>
+                        <% if(locals.errorsMap && locals.errorsMap.description) {%>
+                        <div class="field-error"><%= errorsMap.description.msg %></div>
+                        <% } %>
+                    </div>
+                
+
+                <div class="form-group">
+                    <label for="price">Price</label>
+                        <input 
+                          type="number"
+                          required
+                          name="price"
+                          id="price"
+                          class="input"
+                          value="<%= typeof body!== 'undefined' ? body.price : '' %>"
+                          placeholder="Price of item"
+                          min="0"
+                          step=".01"
+                          
+                          />
+                        <% if(locals.errorsMap && locals.errorsMap.price) {%>
+                            <div class="field-error"><%= errorsMap.price.msg %></div>
+                        <% } %>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                        <input 
+                          type="number"
+                          required
+                          name="quantity"
+                          id="quantity"
+                          class="input"
+                          value="<%= typeof body!== 'undefined' ? body.quantity : '' %>"
+                          placeholder="Number of items"
+                          min="1"
+                          />
+                        <% if(locals.errorsMap && locals.errorsMap.quantity) {%>
+                            <div class="field-error"><%= errorsMap.quantity.msg %></div>
+                        <% } %>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="category">Category</label>
+                        <select name="category" id="category">
+                            <option value="null">--None--</option>
+                            <% categories.forEach(category => { %>
+                                <option value="<%= category.id%>" <% if(category.id === body.category_id){%> selected <% }%> ><%= category.name %></option>
+                            <%})%>
+                        </select>
+                        <% if(locals.errorsMap && locals.errorsMap.category) {%>
+                            <div class="field-error"><%= errorsMap.category.msg %></div>
+                        <% } %>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="supplier">Supplier</label>
+                        <select name="supplier" id="supplier">
+                            <option value="null">--None--</option>
+                            <% suppliers.forEach(supplier => { %>
+                                <option value="<%= supplier.id%>" <% if(supplier.id === body.supplier_id){%> selected <% }%> ><%= supplier.name %></option>
+                            <%})%>
+                        </select>
+                        <% if(locals.errorsMap && locals.errorsMap.supplier) {%>
+                            <div class="field-error"><%= errorsMap.supplier.msg %></div>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn">Submit</button>
+                    <a href="/item/all" class="btn secondary">Cancel</a>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
